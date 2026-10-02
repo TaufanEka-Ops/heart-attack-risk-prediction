@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite it as below."
+title: "Framingham 10-Year CHD Risk — a leakage-free, imbalance-aware rebuild"
+abstract: >-
+  A rigorous rebuild of a coursework analysis of the Framingham Heart Study
+  10-year CHD subset. Fixes a categorical-imputation defect and a
+  preprocessing-before-split leak, replaces a single train/test split with
+  stratified cross-validation, and reports calibration and decision-threshold
+  analysis alongside accuracy.
+authors:
+  - family-names: Hidayatullah
+    given-names: Taufan Eka
+version: 1.0.0
+date-released: "2026-10-02"
+license: MIT
+keywords:
+  - machine-learning
+  - healthcare-analytics
+  - class-imbalance
+  - calibration
+  - data-leakage
+  - framingham

@@ -1,0 +1,15 @@
+# Runtime — versions are those actually used to produce results/.
+numpy>=2.0,<3.0
+pandas>=2.2
+scipy>=1.11
+scikit-learn>=1.4
+matplotlib>=3.8
+seaborn>=0.13
+
+# Development / notebook execution
+pytest>=8.0
+nbformat>=5.10
+nbclient>=0.10
+nbconvert>=7.16
+ipykernel>=6.29
+jupyter_client>=8.6

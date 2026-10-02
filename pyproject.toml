@@ -1,0 +1,34 @@
+[project]
+name = "heart-attack-risk-prediction"
+version = "1.0.0"
+description = "Leakage-free, imbalance-aware 10-year CHD risk prediction on the Framingham Heart Study subset, with calibration and threshold analysis."
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Taufan Eka Hidayatullah" }]
+keywords = [
+    "machine-learning",
+    "healthcare-analytics",
+    "class-imbalance",
+    "calibration",
+    "data-leakage",
+    "framingham",
+]
+dependencies = [
+    "numpy>=2.0,<3.0",
+    "pandas>=2.2",
+    "scipy>=1.11",
+    "scikit-learn>=1.4",
+    "matplotlib>=3.8",
+    "seaborn>=0.13",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "nbformat>=5.10", "nbclient>=0.10", "ipykernel>=6.29"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.ruff]
+line-length = 110
+target-version = "py310"
