@@ -1,0 +1,66 @@
+{
+  "project": "heart-attack-risk-prediction",
+  "generated_utc": "2026-10-02T00:14:03Z",
+  "raw_csv": "/home/heisenberg/portfolio-rework/repos/heart-attack-risk-prediction/data/raw/framingham.csv",
+  "raw_csv_sha256": "40921748dbdf6587045b9822414199a1ae3349358b63b975ab2208aa3cccc45b",
+  "raw_csv_md5": "d63c4429755949141d1ccea1ebaf997a",
+  "n_rows": 4238,
+  "n_positives": 644,
+  "positive_rate": 0.152,
+  "missing_cells": 645,
+  "n_models": 7,
+  "models": [
+    "Dummy (majority class)",
+    "Logistic Regression",
+    "Logistic Regression (balanced)",
+    "Linear SVM (balanced)",
+    "Random Forest (balanced)",
+    "Hist Gradient Boosting",
+    "MLP (100,100,100)"
+  ],
+  "protocol": {
+    "cv": "StratifiedKFold(n_splits=5, shuffle=True)",
+    "holdout": "train_test_split(test_size=0.2, stratify=y)",
+    "random_state": 42
+  },
+  "environment": {
+    "python": "3.14.7",
+    "platform": "Linux-7.2.7-200.fc44.x86_64-x86_64-with-glibc2.43",
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scikit_learn": "1.9.1"
+  },
+  "artifacts": [
+    "results/README.md",
+    "results/calibration_summary.csv",
+    "results/confusion_matrices.csv",
+    "results/figures/01_class_balance.png",
+    "results/figures/02_missingness.png",
+    "results/figures/03_correlation.png",
+    "results/figures/04_roc_curves.png",
+    "results/figures/05_pr_curves.png",
+    "results/figures/06_confusion_matrix.png",
+    "results/figures/07_calibration.png",
+    "results/figures/08_model_comparison.png",
+    "results/figures/08b_model_comparison_roc.png",
+    "results/figures/09_thresholds.png",
+    "results/leakage_audit_imputation.csv",
+    "results/leakage_audit_metric_impact.csv",
+    "results/leakage_audit_scaler.csv",
+    "results/metrics_cv.csv",
+    "results/metrics_holdout.csv",
+    "results/missingness.csv",
+    "results/oof_probabilities.csv",
+    "results/threshold_analysis.csv",
+    "results/thresholds_for_target_recall.csv",
+    "results/transcripts/01_eda.log",
+    "results/transcripts/02_leakage_audit.log",
+    "results/transcripts/03_cross_validation.log",
+    "results/transcripts/04_holdout_evaluation.log",
+    "results/transcripts/05_threshold_analysis.log",
+    "results/transcripts/06_manifest.log",
+    "results/transcripts/07_notebook.log"
+  ]
+}
+
+wrote results/manifest.json  (29 artifacts listed)

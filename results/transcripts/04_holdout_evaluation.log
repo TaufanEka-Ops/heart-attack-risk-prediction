@@ -1,0 +1,55 @@
+holdout: 3390 train / 848 test, stratified
+positives: train 515 (15.19%), test 129 (15.21%)
+
+=== held-out metrics (one stratified 80/20 split) ===
+-----------------------------------------------------
+                         model  accuracy  precision  recall     f1  roc_auc  pr_auc  brier
+        Dummy (majority class)    0.8479     0.0000  0.0000 0.0000   0.5000  0.1521 0.1290
+           Logistic Regression    0.8491     0.5294  0.0698 0.1233   0.6996  0.2972 0.1220
+Logistic Regression (balanced)    0.6698     0.2492  0.5814 0.3488   0.6987  0.2944 0.2115
+         Linear SVM (balanced)    0.8467     0.4545  0.0388 0.0714   0.6999  0.2840 0.1217
+      Random Forest (balanced)    0.8066     0.2941  0.1938 0.2336   0.6677  0.2548 0.1464
+        Hist Gradient Boosting    0.8361     0.2500  0.0388 0.0671   0.6427  0.2298 0.1303
+             MLP (100,100,100)    0.8325     0.2903  0.0698 0.1125   0.6642  0.2379 0.1339
+
+wrote results/metrics_holdout.csv
+generating out-of-fold probabilities (5 folds x 7 models)...
+wrote results/oof_probabilities.csv
+=== calibration (mean_predicted should match the observed rate) ===
+-------------------------------------------------------------------
+                         model  observed_rate  mean_predicted  calibration_ratio  brier  ece_quantile_10  spearman_vs_reference
+        Dummy (majority class)         0.1520          0.1520             1.0000 0.1289           0.0004                -0.0471
+           Logistic Regression         0.1520          0.1518             0.9991 0.1166           0.0152                 1.0000
+Logistic Regression (balanced)         0.1520          0.4422             2.9101 0.2102           0.2902                 0.9982
+         Linear SVM (balanced)         0.1520          0.1518             0.9992 0.1171           0.0111                 0.9922
+      Random Forest (balanced)         0.1520          0.2900             1.9085 0.1413           0.1381                 0.9033
+        Hist Gradient Boosting         0.1520          0.1490             0.9804 0.1199           0.0151                 0.8345
+             MLP (100,100,100)         0.1520          0.1514             0.9966 0.1202           0.0168                 0.8781
+
+Reading this table: 'Logistic Regression' predicts a mean risk of ~0.152
+against an observed 0.152 — it is calibrated in the large. The balanced
+variant predicts ~0.44 for the same people: identical ranking (see the
+spearman column), probabilities inflated ~3x. The extra positives it
+catches at the 0.5 cut-off come from that inflation, not from better
+discrimination — and the same effect is available for free by lowering
+the threshold on the calibrated model (scripts/05).
+
+wrote results/calibration_summary.csv
+=== confusion matrix counts at threshold 0.5 (holdout) ===
+----------------------------------------------------------
+                         model  tn  fp  fn  tp  accuracy  precision  recall     f1
+        Dummy (majority class) 719   0 129   0    0.8479     0.0000  0.0000 0.0000
+           Logistic Regression 711   8 120   9    0.8491     0.5294  0.0698 0.1233
+Logistic Regression (balanced) 493 226  54  75    0.6698     0.2492  0.5814 0.3488
+         Linear SVM (balanced) 713   6 124   5    0.8467     0.4545  0.0388 0.0714
+      Random Forest (balanced) 659  60 104  25    0.8066     0.2941  0.1938 0.2336
+        Hist Gradient Boosting 704  15 124   5    0.8361     0.2500  0.0388 0.0671
+             MLP (100,100,100) 697  22 120   9    0.8325     0.2903  0.0698 0.1125
+
+wrote results/confusion_matrices.csv
+best model on the holdout by PR-AUC: Logistic Regression
+
+wrote /home/heisenberg/portfolio-rework/repos/heart-attack-risk-prediction/results/figures/04_roc_curves.png
+wrote /home/heisenberg/portfolio-rework/repos/heart-attack-risk-prediction/results/figures/05_pr_curves.png
+wrote /home/heisenberg/portfolio-rework/repos/heart-attack-risk-prediction/results/figures/06_confusion_matrix.png
+wrote /home/heisenberg/portfolio-rework/repos/heart-attack-risk-prediction/results/figures/07_calibration.png

@@ -1,0 +1,46 @@
+analysing: Logistic Regression  (out-of-fold probabilities, n=4238)
+
+=== precision / recall by decision threshold ===
+------------------------------------------------
+ threshold  precision  recall     f1  flagged_rate  tp   fp  fn   tn
+    0.0500     0.1719  0.9596 0.2916        0.8483 618 2977  26  617
+    0.1000     0.2181  0.8307 0.3455        0.5788 535 1918 109 1676
+    0.1500     0.2667  0.6708 0.3816        0.3823 432 1188 212 2406
+    0.2000     0.3076  0.5186 0.3861        0.2563 334  752 310 2842
+    0.2500     0.3366  0.3789 0.3565        0.1711 244  481 400 3113
+    0.3000     0.3518  0.2562 0.2965        0.1107 165  304 479 3290
+    0.3500     0.4152  0.1786 0.2497        0.0654 115  162 529 3432
+    0.4000     0.4620  0.1320 0.2053        0.0434  85   99 559 3495
+    0.4500     0.5614  0.0994 0.1689        0.0269  64   50 580 3544
+    0.5000     0.7027  0.0807 0.1448        0.0175  52   22 592 3572
+    0.5500     0.6977  0.0466 0.0873        0.0101  30   13 614 3581
+    0.6000     0.7200  0.0280 0.0538        0.0059  18    7 626 3587
+    0.6500     0.8571  0.0186 0.0365        0.0033  12    2 632 3592
+    0.7000     0.8889  0.0124 0.0245        0.0021   8    1 636 3593
+    0.7500     0.8571  0.0093 0.0184        0.0017   6    1 638 3593
+    0.8000     0.8000  0.0062 0.0123        0.0012   4    1 640 3593
+    0.8500     1.0000  0.0047 0.0093        0.0007   3    0 641 3594
+    0.9000     1.0000  0.0031 0.0062        0.0005   2    0 642 3594
+    0.9500     0.0000  0.0000 0.0000        0.0000   0    0 644 3594
+
+wrote results/threshold_analysis.csv
+=== the cost of the silent default ===
+  threshold 0.50 : precision 0.703, recall 0.081, F1 0.145, flags 1.7% of everyone screened (52 true positives caught, 592 missed)
+  threshold 0.20 : precision 0.308, recall 0.519, F1 0.386, flags 25.6% of everyone screened
+
+=== operating points that reach 70% sensitivity ===
+ threshold  precision  recall     f1  flagged_rate  tp   fp  fn   tn
+    0.1400     0.2571  0.7065 0.3770        0.4176 455 1315 189 2279
+
+  To catch 70% of the 644 people who develop CHD
+  you must flag 1770.0 of 4238 (41.8% of the cohort),
+  and 1315 of those flags will be false alarms (precision 0.257).
+wrote results/thresholds_for_target_recall.csv
+
+wrote /home/heisenberg/portfolio-rework/repos/heart-attack-risk-prediction/results/figures/09_thresholds.png
+
+=== summary line at fixed thresholds ===
+  tau=0.50  precision=0.703  recall=0.081  f1=0.145  flagged=1.7%
+  tau=0.20  precision=0.308  recall=0.519  f1=0.386  flagged=25.6%
+  tau=0.20  precision=0.308  recall=0.519  f1=0.386  flagged=25.6%
+  tau=0.30  precision=0.352  recall=0.256  f1=0.296  flagged=11.1%

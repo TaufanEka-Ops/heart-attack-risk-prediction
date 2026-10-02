@@ -1,0 +1,53 @@
+loaded 4238 rows, 644 positives (15.20%)
+
+=== Defect A: one imputation rule for every column kind ===
+    column       kind            domain  n_missing  full_data_mean_used_to_fill  train_only_mean  fill_value_in_domain  cells_filled_out_of_domain
+ education    ordinal         {1,2,3,4}        105                       1.9789           1.9785                 False                         105
+    BPMeds binary 0/1             {0,1}         53                       0.0296           0.0293                 False                          53
+cigsPerDay continuous non-negative real         29                       9.0031           9.0469                  True                           0
+   glucose continuous non-negative real        388                      81.9668          81.9834                  True                           0
+   totChol continuous non-negative real         50                     236.7216         236.2554                  True                           0
+       BMI continuous non-negative real         19                      25.8020          25.8173                  True                           0
+ heartRate continuous non-negative real          1                      75.8789          75.9203                  True                           0
+
+cells given a value outside their own domain: 158
+
+=== Defect B: scaler fitted on all rows before the split ===
+         column  mean_full_data  mean_train_only  mean_abs_diff  sd_full_data  sd_train_only  mean_abs_diff_in_sd
+        totChol        236.7216         236.2554         0.4661       44.3212        43.9454               0.0106
+prevalentStroke          0.0059           0.0065         0.0006        0.0766         0.0803               0.0074
+           male          0.4292           0.4322         0.0029        0.4950         0.4954               0.0059
+  currentSmoker          0.4941           0.4912         0.0030        0.5000         0.4999               0.0059
+          diaBP         82.8935          82.8307         0.0628       11.9094        11.8765               0.0053
+       diabetes          0.0257           0.0265         0.0008        0.1583         0.1608               0.0052
+            age         49.5849          49.6260         0.0410        8.5711         8.5652               0.0048
+            BMI         25.8020          25.8173         0.0153        4.0705         4.1180               0.0037
+     cigsPerDay          9.0031           9.0469         0.0438       11.8778        11.9337               0.0037
+      heartRate         75.8789          75.9203         0.0414       12.0238        12.0149               0.0034
+         BPMeds          0.0296           0.0293         0.0004        0.1685         0.1675               0.0021
+          sysBP        132.3524         132.3822         0.0297       22.0355        21.9997               0.0014
+   prevalentHyp          0.3105           0.3109         0.0004        0.4627         0.4629               0.0008
+        glucose         81.9668          81.9834         0.0166       22.8339        22.9724               0.0007
+      education          1.9789           1.9785         0.0004        1.0070         1.0143               0.0004
+
+largest gap: totChol, 236.7216 (all rows) vs 236.2554 (train only) — 0.4661 raw units, 0.0106 sd
+
+=== Defect B impact on the reported test metrics (single 80/20 split) ===
+   metric  leaky_preprocessing  correct_pipeline  difference
+ accuracy               0.8479            0.8491     -0.0012
+precision               0.5000            0.5294     -0.0294
+   recall               0.0698            0.0698      0.0000
+       f1               0.1224            0.1233     -0.0008
+  roc_auc               0.6991            0.6996     -0.0006
+   pr_auc               0.2985            0.2972      0.0014
+    brier               0.1221            0.1220      0.0001
+
+Read this honestly: scaling leakage alone shifts the metrics only in the
+third decimal place. It is a methodological defect — the test rows helped
+choose the parameters used to score them — but it is not the reason the
+original numbers look good. The reason is that accuracy is the wrong
+metric for a 15%-positive problem. See scripts/03 and the majority-class
+baseline: predicting 'no CHD' for everyone scores 84.8% accuracy.
+wrote results/leakage_audit_imputation.csv
+wrote results/leakage_audit_scaler.csv
+wrote results/leakage_audit_metric_impact.csv

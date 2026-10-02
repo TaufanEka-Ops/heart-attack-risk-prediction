@@ -1,0 +1,62 @@
+=== data contract ===
+  n_rows                     4238
+  n_columns                  16
+  positive_class             644
+  negative_class             3594
+  positive_rate              0.152
+  missing                    {'education': 105, 'cigsPerDay': 29, 'BPMeds': 53, 'totChol': 50, 'BMI': 19, 'heartRate': 1, 'glucose': 388}
+  missing_matches_expected   True
+  duplicate_rows             0
+
+=== what accuracy alone buys you ===
+  positive rate                     0.1520
+  accuracy of always predicting 0   0.8480
+  recall of always predicting 0     0.0000
+
+=== missing values (n=4238) ===
+-------------------------------
+    column  missing  pct_missing
+   glucose      388       9.1600
+ education      105       2.4800
+    BPMeds       53       1.2500
+   totChol       50       1.1800
+cigsPerDay       29       0.6800
+       BMI       19       0.4500
+ heartRate        1       0.0200
+
+total missing cells: 645 (0.95% of the matrix)
+rows that are complete: 3656
+
+=== is missingness related to the outcome? ===
+  glucose      CHD rate when missing 0.129 vs present 0.154  (n_missing=388)
+  education    CHD rate when missing 0.152 vs present 0.152  (n_missing=105)
+  BPMeds       CHD rate when missing 0.208 vs present 0.151  (n_missing=53)
+  totChol      CHD rate when missing 0.180 vs present 0.152  (n_missing=50)
+  cigsPerDay   CHD rate when missing 0.069 vs present 0.153  (n_missing=29)
+  BMI          CHD rate when missing 0.526 vs present 0.150  (n_missing=19)
+  heartRate    CHD rate when missing 1.000 vs present 0.152  (n_missing=1)
+
+=== features ranked by |correlation| with TenYearCHD ===
+--------------------------------------------------------
+        feature  corr_with_target
+            age            0.2253
+          sysBP            0.2164
+   prevalentHyp            0.1776
+          diaBP            0.1453
+        glucose            0.1255
+       diabetes            0.0973
+           male            0.0884
+         BPMeds            0.0875
+        totChol            0.0822
+            BMI            0.0752
+prevalentStroke            0.0618
+     cigsPerDay            0.0579
+      education           -0.0541
+      heartRate            0.0229
+  currentSmoker            0.0195
+
+wrote results/missingness.csv
+
+wrote figure /home/heisenberg/portfolio-rework/repos/heart-attack-risk-prediction/results/figures/01_class_balance.png
+wrote figure /home/heisenberg/portfolio-rework/repos/heart-attack-risk-prediction/results/figures/02_missingness.png
+wrote figure /home/heisenberg/portfolio-rework/repos/heart-attack-risk-prediction/results/figures/03_correlation.png
